@@ -29,7 +29,7 @@ public class ControllerTest {
 
     @GetMapping("/getMethod")
     public String handle(Model model) {
-        model.addAttribute("message", "getMethod");
+        model.addAttribute("message", "getMethod ");
         return "index";
     }
 
