@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE web-app PUBLIC
+        "-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN"
+        "http://java.sun.com/dtd/web-app_2_3.dtd" >
+<!--
+<web-app></web-app>是部署描述的根元素，该元素含23个子元素。在Servlet2.3中，子元素必须按照DTD文件描述中指定的顺序出现。
+比如：如果部署描述符中的<web-app>元素有<servlet>和<servlet-mapping>两个子元素，则<servlet>子元素必须出现在<servlet-mapping>
+子元素之前。在Servlet2.4中，顺序并不重要。-->
+<web-app xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee
+         http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd"
+         version="3.1">
+
+    <!--定义web应用的名称-->
+    <display-name>common-web</display-name>
+
+    <!--整合spring-->
+    <listener>
+        <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+    </listener>
+
+    <context-param>
+        <param-name>contextConfigLocation</param-name>
+        <param-value>classpath*:**/applicationContext*.xml</param-value>
+    </context-param>
+
+    <!--configure the setting of springmvcDispatcherServlet and configure the mapping-->
+    <servlet>
+        <servlet-name>springmvc</servlet-name>
+        <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+        <init-param>
+            <param-name>contextConfigLocation</param-name>
+            <param-value>classpath:springmvc.xml</param-value>
+        </init-param>
+        <!--它的值必须是一个整数，表示servlet被加载的先后顺序
+        如果该元素的值为负数或者没有设置，则容器会当Servlet被请求时再加载
+        如果值为正整数或者0时，表示容器在应用启动时就加载并初始化这个servlet，值越小，servlet的优先级越高，就越先被加载。值相同时，容器就会自己选择顺序来加载。
+        -->
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>springmvc</servlet-name>
+        <url-pattern>/</url-pattern>
+    </servlet-mapping>
+
+    <!--解决中文乱码-->
+    <filter>
+        <filter-name>characterEncodingFilter</filter-name>
+        <filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
+        <init-param>
+            <param-name>encoding</param-name>
+            <param-value>UTF-8</param-value>
+        </init-param>
+        <init-param>
+            <param-name>forceEncoding</param-name>
+            <param-value>true</param-value>
+        </init-param>
+    </filter>
+    <filter-mapping>
+        <filter-name>characterEncodingFilter</filter-name>
+        <url-pattern>/</url-pattern>
+    </filter-mapping>
+
+    <!--
+    <filter>
+        <filter-name>openSessionInViewFilter</filter-name>
+        <filter-class>org.springframework.orm.hibernate5.support.OpenSessionInViewFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>opernSessionInViewFilter</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
+    -->
+
+    <!--<distributable/>可以使用distributable元素来告诉servlet/JSP容器，Web容器中部署的应用程序适合在分布式环境下运行。-->
+
+    <!--<context-param>元素含有一对参数名和参数值，用作应用的Servlet上下文初始化参数，参数名在整个Web应用中必须是惟一的，在web应用的整个-->
+    <!--生命周期中上下文初始化参数都存在，任意的Servlet和jsp都可以随时随地访问它。<param-name>子元素包含有参数名，而<param-value>子元素-->
+    <!--包含的是参数值。作为选择，可用<description>子元素来描述参数。-->
+
+    <!--配置Spring，必须需要<listener>，而<context-param>可有可无，如果在web.xml中不写<context-param>配置信息，默认的路径-->
+    <!--是/WEB-INF/applicationContext.xml，在WEB-INF目录下创建的xml文件的名称必须是applicationContext.xml。如果是要自定义文件名可以-->
+    <!--在web.xml里加入contextConfigLocation这个context参数：在<param-value>里指定相应的xml文件名，如果有多个xml文件，可以写在一起-->
+    <!--并以“,”号分隔
+    <context-param>
+        <param-name>contextConfigLocation</param-name>
+        <param-value>classpath:applicationContext.xml</param-value>
+    </context-param>
+
+    <listener>
+        <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+    </listener>
+    -->
+
+    <!--配置在同一个容器中的多个web项目，要配置不同的webAppRootKey，web.xml文件中最好定义webAppRootKey参数，如果不定义，-->
+    <!--将会缺省为“webapp.root”，为防止log4j配置冲突，每个项目配置不同的webAppRootKey-->
+    <!--
+    <context-param>
+      <param-name>webAppRootKey</param-name>
+      <param-value>commonweb</param-value>
+    </context-param>
+
+    <listener>
+      <listener-class>org.springframework.web.util.ContentCachingRequestWrapper</listener-class>
+    </listener>
+    -->
+
+    <!--<session-config> 用于设置容器的session参数，比如：<session-timeout>用于指定http session的失效时间。默认时间设置(30minutes)。
+    <session-timeout>用来指定默认的会话超时时间间隔，以分钟为单位。该元素值为整数。如果 session-timeout元素的值为零或负数，
+    则表示会话将永远不会超时。
+    <session-config>
+        <session-timeout>60</session-timeout>
+    </session-config>
+    -->
+
+
+    <!-- filter 过滤器元素将一个名字与一个实现javax.servlet.Filter接口的类相关联。
+    <filter></filter>
+    -->
+
+    <!-- filter-mapping 一旦命名了一个过滤器，就要利用filter-mapping元素把它与一个或多个servlet或JSP页面相关联。
+    <filter-mapping></filter-mapping>
+    -->
+
+
+    <!--为Servlet命名
+    <servlet>
+        <servlet-name>servlet1</servlet-name>
+        <servlet-class>org.whatisjava.TestServlet</servlet-class>
+        定制初始化参数：可以定制servlet、JSP、Context的初始化参数，然后可以再servlet、JSP、Context中获取这些参数值。
+        <init-param>
+          <param-name>userName</param-name>
+          <param-value>Daniel</param-value>
+        </init-param>
+    </servlet>
+    -->
+
+    <!--为Servlet定制URL
+    <servlet-mapping>
+        <servlet-name>servlet1</servlet-name>
+        <url-pattern>*.do</url-pattern>
+    </servlet-mapping>
+    -->
+
+
+    <!-- 指定错误处理页面，可以通过“异常类型”或“错误码”来指定错误处理页面
+    <error-page>
+        <error-code>404</error-code>
+        <location>/error404.jsp</location>
+    </error-page>
+    <error-page>
+        <exception-type>java.lang.Exception<exception-type>
+        <location>/exception.jsp<location>
+    </error-page>
+    -->
+
+
+    <!-- 指定欢迎页面,显示时按顺序从第一个找起，如果第一个存在，就显示第一个，后面的不起作用。如果第一个不存在，就找第二个，以此类推
+    <welcome-file-list>
+        <welcome-file>index.jsp</welcome-file>
+        <welcome-file>index1.jsp</welcome-file>
+    </welcome-file-list>
+    -->
+
+</web-app>
