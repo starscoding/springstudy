@@ -24,6 +24,12 @@ public class MybatisTest {
         return gson.toJson(bookService.getBooks());
     }
 
+    @RequestMapping("/getAllBooks2")
+    public String getAllBooks2(){
+        Gson gson = new Gson();
+        return gson.toJson(bookService.getBooks2());
+    }
+
     public MybatisTest() {
         System.out.println("init mybatistest controller!");
     }

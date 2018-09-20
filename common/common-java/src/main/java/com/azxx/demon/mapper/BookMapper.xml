@@ -17,9 +17,9 @@
         values(#{title},#{price},#{publishDate})
     </insert>
     <!-- 删除 -->
-    <delete id="delete">
-        delete from books where id=#{id}
-    </delete>
+    <!--<delete id="delete">-->
+        <!--delete from books where id=#{id}-->
+    <!--</delete>-->
     <!-- 更新 -->
     <update id="update">
         update books set title=#{title},price=#{price},publishDate=#{publishDate}

@@ -43,7 +43,7 @@ public class BookService {
     }
 
     public int delete(int id) {
-        return booksDao.delete(id);
+        return booksDao.deleteByPrimaryKey(id);
     }
 
     /**
@@ -60,5 +60,10 @@ public class BookService {
 
     public int update(Book entity) {
         return booksDao.update(entity);
+    }
+
+
+    public List<Book> getBooks2(){
+        return booksDao.selectAll();
     }
 }
