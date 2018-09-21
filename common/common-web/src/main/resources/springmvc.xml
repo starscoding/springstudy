@@ -35,5 +35,11 @@
     </mvc:annotation-driven>
 
     <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver" p:prefix="/" p:suffix=".jsp"/>
+    <!-- 静态资源文件，不会被Spring MVC拦截 -->
+    <!--<mvc:resources mapping="/swagger/**" location="/swagger/" />-->
 
+    <!--swagger 配置，配置的扫描路径与spring mvc 路径一直-->
+    <bean class="springfox.documentation.swagger2.configuration.Swagger2DocumentationConfiguration" id="swagger2Config"/>
+    <mvc:resources mapping="swagger-ui.html" location="classpath:/META-INF/resources/" />
+    <mvc:resources mapping="/webjars/**" location="classpath:/META-INF/resources/webjars/" />
 </beans>

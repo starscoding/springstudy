@@ -2,6 +2,8 @@ package com.azxx.demon;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -15,12 +17,14 @@ import java.util.concurrent.atomic.AtomicLong;
 
 @Controller
 @RequestMapping("/abc")
+@Api(value = "restful", description = "测试")
 public class ControllerTest {
 
 
     private static final String template = "Hello, %s!";
     private final AtomicLong counter = new AtomicLong();
 
+    @ApiOperation(value = "测试专用")
     @RequestMapping("/greeting")
     public Greeting greeting(@RequestParam(value="name", defaultValue="World") String name) {
         return new Greeting(counter.incrementAndGet(),
