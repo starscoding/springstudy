@@ -302,5 +302,13 @@
             <!--<version>2.7.5</version>-->
         <!--</dependency>-->
         <!--swagger end-->
+
+        <!--spring batch start-->
+        <dependency>
+            <groupId>org.springframework.batch</groupId>
+            <artifactId>spring-batch-core</artifactId>
+            <version>3.0.8.RELEASE</version>
+        </dependency>
+        <!--spirng batch end-->
     </dependencies>
 </project>
