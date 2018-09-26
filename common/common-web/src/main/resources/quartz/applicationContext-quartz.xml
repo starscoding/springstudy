@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+
+    <!-- 加载数据库配置 -->
+    <context:property-placeholder location="classpath:quartz/jdbc.properties"/>
+
+    <!-- 数据源 -->
+    <bean id="quartzDataSource" class="org.apache.commons.dbcp2.BasicDataSource"
+          destroy-method="close">
+        <property name="driverClassName">
+            <value>${jdbc.driver}</value>
+        </property>
+        <property name="url">
+            <value>${jdbc.url}</value>
+        </property>
+        <property name="username">
+            <value>${jdbc.username}</value>
+        </property>
+        <property name="password">
+            <value>${jdbc.password}</value>
+        </property>
+        <property name="initialSize">
+            <value>${jdbc.initialSize}</value>
+        </property>
+        <property name="maxIdle">
+            <value>${jdbc.minIdle}</value>
+        </property>
+    </bean>
+    <bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
+        <property name="dataSource">
+            <ref bean="quartzDataSource"/>
+        </property>
+        <property name="fetchSize">
+            <value>${jdbc.jdbcTemplate.fetchSize}</value>
+        </property>
+    </bean>
+
+    <!-- 访问数据库方式 -->
+    <bean id="jdbcDao" class="com.dexcoder.dal.spring.JdbcDaoImpl">
+        <property name="jdbcTemplate" ref="jdbcTemplate"/>
+    </bean>
+    <!--Job用于表示被调度的任务。主要有两种类型的job：无状态的（stateless）和有状态的（stateful）。-->
+    <!--对于同一个trigger来说，有状态的job不能被并行执行，只有上一次触发的任务被执行完之后，才能触发下一次执行。-->
+    <!--Job主要有两种属性：volatility和durability，其中volatility表示任务是否被持久化到数据库存储，-->
+    <!--而durability表示在没有trigger关联的时候任务是否被保留。两者都是在值为true的时候任务被持久化或保留。-->
+    <!--一个job可以被多个trigger关联，但是一个trigger只能关联一个job。-->
+    <bean id="jobDetail" class="org.springframework.scheduling.quartz.JobDetailFactoryBean">
+        <property name="jobClass" value="com.azxx.demon.quartz.TestJob"></property>
+        <property name="durability" value="true"></property>
+    </bean>
+
+    <!--Trigger是用于定义调度时间的元素，即按照什么时间规则去执行任务。Quartz中主要提供了四种类型的-->
+    <!--trigger：SimpleTrigger，CronTirgger，DateIntervalTrigger，和NthIncludedDayTrigger。-->
+    <!--这四种trigger可以满足企业应用中的绝大部分需求。-->
+    <bean id="simpleTrigger" class="org.springframework.scheduling.quartz.SimpleTriggerFactoryBean">
+        <property name="jobDetail" ref="jobDetail"/>
+        <property name="startDelay" value="30000000"/>
+        <property name="repeatInterval" value="2000"/>
+    </bean>
+
+    <!-- 总管理类 如果将lazy-init='false'那么容器启动就会执行调度程序 -->
+    <!--DirectSchedulerFactory或者StdSchedulerFactory。第二种工厂StdSchedulerFactory使用较多，因为DirectSchedulerFactory使用起来不够方便，需要作许多详细的手工编码设置。-->
+    <!--Scheduler主要有三种：RemoteMBeanScheduler，RemoteScheduler和StdScheduler。-->
+    <bean id="startQuertz" lazy-init="false" autowire="no"
+          class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
+        <!-- 管理trigger -->
+        <property name="dataSource" ref="quartzDataSource"/>
+        <!--可选，QuartzScheduler 启动时更新己存在的Job，这样就不用每次修改targetObject后删除qrtz_job_details表对应记录了 -->
+        <property name="overwriteExistingJobs" value="true"/>
+        <!--必须的，QuartzScheduler 延时启动，应用启动完后 QuartzScheduler 再启动 -->
+        <property name="startupDelay" value="3"/>
+        <!-- 设置自动启动 -->
+        <property name="autoStartup" value="true"/>
+        <!-- 把spring上下 文以key/value的方式存放在了quartz的上下文中了 -->
+        <property name="applicationContextSchedulerContextKey" value="applicationContext"/>
+        <!-- scheduler的名称 -->
+        <property name="schedulerName" value="ClusterScheduler123"/>
+        <property name="configLocation" value="classpath:/quartz/quartz.properties"/>
+        <!--         <property name="quartzProperties"> -->
+        <!--             <props> -->
+        <!--                 <prop key="org.quartz.scheduler.instanceName">ClusterScheduler</prop> -->
+        <!--                 <prop key="org.quartz.scheduler.instanceId">AUTO</prop> -->
+        <!--                 线程池配置 -->
+        <!--                 <prop key="org.quartz.threadPool.class">org.quartz.simpl.SimpleThreadPool</prop> -->
+        <!--                 <prop key="org.quartz.threadPool.threadCount">20</prop> -->
+        <!--                 <prop key="org.quartz.threadPool.threadPriority">5</prop> -->
+        <!--                 JobStore 配置 -->
+        <!--                 <prop key="org.quartz.jobStore.class">org.quartz.impl.jdbcjobstore.JobStoreTX</prop> -->
+
+        <!--                 集群配置 -->
+        <!--                 <prop key="org.quartz.jobStore.isClustered">true</prop> -->
+        <!--                 <prop key="org.quartz.jobStore.clusterCheckinInterval">15000</prop> -->
+        <!--                 <prop key="org.quartz.jobStore.maxMisfiresToHandleAtATime">1</prop> -->
+
+        <!--                 <prop key="org.quartz.jobStore.misfireThreshold">120000</prop> -->
+
+        <!--                 <prop key="org.quartz.jobStore.tablePrefix">QRTZ_</prop> -->
+        <!--             </props> -->
+        <!--         </property> -->
+        <property name="triggers">
+            <list>
+                <ref bean="simpleTrigger"/>
+                <ref bean="testTrigger"/>
+                <ref bean="cronTrigger"/>
+            </list>
+        </property>
+    </bean>
+
+    <!-- 要执行任务的任务类。 -->
+    <bean id="testQuartz" class="com.azxx.demon.quartz.TestJob2"></bean>
+    <bean id="myDetailQuartzJobBean" class="com.azxx.demon.quartz.MyDetailQuartzJobBean"></bean>
+
+    <!-- 将需要执行的定时任务注入JOB中。 -->
+    <bean id="testJob" class="org.springframework.scheduling.quartz.JobDetailFactoryBean">
+        <property name="jobClass">
+            <value>com.azxx.demon.quartz.MyDetailQuartzJobBean</value>
+        </property>
+        <property name="jobDataAsMap">
+            <map>
+                <entry key="targetObject" value="testQuartz" />
+                <entry key="targetMethod" value="dosth" />
+            </map>
+        </property>
+        <property name="durability" value="true"></property>
+        <!--<property name="targetObject" ref="testQuartz"></property>-->
+        <!-- 任务类中需要执行的方法 -->
+        <!--<property name="targetMethod" value="dosth"></property>-->
+        <!-- 上一次未执行完成的，要等待有再执行。 -->
+        <!--<property name="concurrent" value="false"></property>-->
+    </bean>
+
+    <!-- 基本的定时器，会绑定具体的任务。 -->
+    <bean id="testTrigger" class="org.springframework.scheduling.quartz.SimpleTriggerFactoryBean">
+        <property name="jobDetail" ref="testJob"></property>
+        <property name="startDelay" value="3000000"></property>
+        <property name="repeatInterval" value="2000"></property>
+    </bean>
+    <!--使用cron表达式-->
+    <bean id="cronTrigger" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
+        <property name="jobDetail" ref="testJob"></property>
+        <!-- 每一秒钟执行一次 -->
+        <property name="cronExpression" value="0 0 0 1 * ? *"></property>
+    </bean>
+
+    <!--<bean id="schedulerFactoryBean" class="org.springframework.scheduling.quartz.SchedulerFactoryBean">-->
+    <!--<property name="triggers">-->
+    <!--<list>-->
+    <!--<ref bean="testTrigger"></ref>-->
+    <!--</list>-->
+    <!--</property>-->
+    <!--</bean>-->
+</beans>
