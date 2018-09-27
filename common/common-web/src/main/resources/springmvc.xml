@@ -42,4 +42,5 @@
     <bean class="springfox.documentation.swagger2.configuration.Swagger2DocumentationConfiguration" id="swagger2Config"/>
     <mvc:resources mapping="swagger-ui.html" location="classpath:/META-INF/resources/" />
     <mvc:resources mapping="/webjars/**" location="classpath:/META-INF/resources/webjars/" />
+    <context:property-placeholder location="classpath*:email/email.properties" ignore-unresolvable="true"/>
 </beans>

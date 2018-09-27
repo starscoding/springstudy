@@ -155,6 +155,7 @@
  #### 整合tk.mybatis*
 ### 整合swagger*
 ### 整合Spring Batch*
-### quartz 和 spring task
+### quartz *和 spring task *
+### mail 发送 *
 ### 整合Spring Security/Apache Shiro
 ### 整合Spring Session

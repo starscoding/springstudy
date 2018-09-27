@@ -3,9 +3,9 @@
 
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xmlns:context="http://www.springframework.org/schema/context"
-       xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xmlns:mvc="http://www.springframework.org/schema/mvc" xmlns:task="http://www.springframework.org/schema/task"
 
-       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task.xsd"
 
        default-lazy-init="false" default-autowire="byName">
 
@@ -29,6 +29,15 @@
     <!--<bean class="com.mangofactory.swagger.configuration.SpringSwaggerConfig" />-->
     <!-- 将自定义的swagger配置类加载到spring容器 -->
     <bean class="com.azxx.demon.config.SwaggerConfig" />
+
+    <!--开启schedule注解-->
+    <task:annotation-driven />
+    <!--<bean id ="taskTest" class= "com.azxx.demon.task.SpringTaskTest" ></bean >-->
+    <!--<task:scheduled-tasks >-->
+        <!--这里表示的是每隔5/10秒执行一次   -->
+        <!--<task:scheduled ref ="taskTest" method="show" cron= "*/5 * * * * ?" />-->
+        <!--<task:scheduled ref ="taskTest" method="print" cron= "*/10 * * * * ?"/>-->
+    <!--</task:scheduled-tasks >-->
 
 
 </beans>
