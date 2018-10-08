@@ -10,7 +10,7 @@ CREATE TABLE `SCHEDULE_JOB` (
   `is_sync` varchar(1) NOT NULL,
   `url` varchar(255) DEFAULT NULL,
   `description` varchar(255) DEFAULT NULL,
-  `gmt_create` timestamp NULL DEFAULT NULL,
+  `gmt_create` time0stamp NULL DEFAULT NULL,
   `gmt_modify` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`schedule_job_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8
