@@ -13,7 +13,7 @@
     <packaging>war</packaging>
 
     <name>common-web</name>
-    <!-- FIXME change it to the project's website -->
+    <!-- FIXME change it to the system's website -->
     <url>http://www.example.com</url>
 
     <properties>
@@ -55,9 +55,9 @@
                         <!--<configuration>-->
                             <!--<artifactItems>-->
                                 <!--<artifactItem>-->
-                                    <!--<groupId>com.azxx.project</groupId>-->
+                                    <!--<groupId>com.azxx.system/groupId>-->
                                     <!--<artifactId>db-jdbc</artifactId>-->
-                                    <!--<version>${project.version}</version>-->
+                                    <!--<version>${system.version}</version>-->
                                     <!--<type>jar</type>-->
                                     <!--<overWrite>true</overWrite>-->
                                     <!--<outputDirectory>./target/classes</outputDirectory>-->

@@ -13,7 +13,7 @@
     <packaging>pom</packaging>
 
     <name>common</name>
-    <!-- FIXME change it to the project's website -->
+    <!-- FIXME change it to the system's website -->
     <url>http://www.example.com</url>
 
     <modules>
