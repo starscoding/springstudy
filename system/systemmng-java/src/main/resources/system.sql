@@ -1,319 +1,41 @@
--- ----------------------------
--- Table structure for T_RESOURCE
--- ----------------------------
-DROP TABLE IF EXISTS `T_RESOURCE`;
-CREATE TABLE `T_RESOURCE` (
-  `ID` varchar(22) NOT NULL COMMENT '编号',
-  `NAME` varchar(100) DEFAULT NULL COMMENT '名称',
-  `CODE` varchar(300) DEFAULT NULL COMMENT 'code',
-  `TYPE` varchar(10) DEFAULT NULL COMMENT '类型(btn,menu,url)',
-  `LEVEL` smallint(6) DEFAULT NULL COMMENT '级别',
-  `PARENT_ID` varchar(22) DEFAULT NULL COMMENT '父编号',
-  `ORDER_SEQ` bigint(22) DEFAULT NULL COMMENT '排序号',
-  `REMARK` varchar(500) DEFAULT NULL COMMENT '备注',
-  `CREATE_AT` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
-  `CREATE_BY` bigint(20) DEFAULT NULL COMMENT '创建人',
-  `UPDATE_AT` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '修改时间',
-  `UPDATE_BY` bigint(20) DEFAULT NULL COMMENT '修改人',
-  PRIMARY KEY (`ID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='资源表';
+CREATE TABLE `sys_user` (
+  `id`  int(11) NOT NULL AUTO_INCREMENT COMMENT '用户编号' ,
+  `user_name`  varchar(100) NULL COMMENT '用户名称' ,
+  `password`  varchar(100) NULL COMMENT '密码' ,
+  `create_time`  timestamp NULL ON UPDATE CURRENT_TIMESTAMP COMMENT '创建时间' ,
+  PRIMARY KEY (`id`)
+)ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='用户表';
 
--- ----------------------------
--- Records of T_RESOURCE
--- ----------------------------
-INSERT INTO `T_RESOURCE` VALUES ('1000', '用户管理', null, 'menu', '1', '-1', '1', null, '2018-09-20 07:10:58', null, '2018-09-25 15:11:05', null);
-INSERT INTO `T_RESOURCE` VALUES ('10001', '新增用户', 'addUserBtn', 'btn', '2', '1000', '2', null, '2018-09-20 07:11:23', null, '2018-09-20 15:11:31', null);
-INSERT INTO `T_RESOURCE` VALUES ('10002', '查询用户', 'queryUserBtn', 'btn', '2', '1000', '2', null, '2018-09-20 07:11:23', null, '2018-09-20 15:11:31', null);
-INSERT INTO `T_RESOURCE` VALUES ('10003', '修改用户', 'updateUserBtn', 'btn', '2', '1000', '2', null, '2018-09-20 07:11:23', null, '2018-09-20 15:11:31', null);
-INSERT INTO `T_RESOURCE` VALUES ('10004', '删除用户', 'delUserBtn', 'btn', '2', '1000', '2', null, '2018-09-20 07:11:23', null, '2018-09-20 15:11:31', null);
-INSERT INTO `T_RESOURCE` VALUES ('10005', 'kkk', 'kkk', 'menu', '2', '1000', '2', null, '2018-09-26 15:00:13', null, '2018-09-26 15:00:13', null);
-INSERT INTO `T_RESOURCE` VALUES ('2000', '权限管理', null, 'menu', '1', '-1', '1', null, '2018-09-20 07:11:23', null, '2018-09-20 15:11:31', null);
-INSERT INTO `T_RESOURCE` VALUES ('20001', '新增权限', null, 'btn', '2', '2000', '2', null, '2018-09-20 07:11:23', null, '2018-09-20 15:11:31', null);
-INSERT INTO `T_RESOURCE` VALUES ('20002', 'll', 'll', 'menu', '2', '2000', '2', null, '2018-09-26 15:00:22', null, '2018-09-26 15:00:22', null);
-INSERT INTO `T_RESOURCE` VALUES ('3000', '角色管理', null, 'menu', '1', '-1', '1', null, '2018-09-20 07:11:23', null, '2018-09-20 15:11:31', null);
-INSERT INTO `T_RESOURCE` VALUES ('30001', 'ppp', 'ppp', 'menu', '2', '3000', '2', null, '2018-09-26 15:00:31', null, '2018-09-26 15:00:31', null);
-INSERT INTO `T_RESOURCE` VALUES ('4000', '菜单管理', null, 'menu', '1', '-1', '1', null, '2018-09-20 07:11:23', null, '2018-09-20 15:11:31', null);
-INSERT INTO `T_RESOURCE` VALUES ('40001', 'pppmmm', 'mmm', 'menu', '2', '4000', '2', null, '2018-09-26 15:00:41', null, '2018-09-26 15:00:41', null);
-INSERT INTO `T_RESOURCE` VALUES ('5000', '部门管理', null, 'menu', '1', '-1', '1', null, '2018-09-20 07:11:23', null, '2018-09-20 15:11:31', null);
-INSERT INTO `T_RESOURCE` VALUES ('50001', 'gg', 'bb', 'menu', '2', '5000', '2', null, '2018-09-26 15:00:51', null, '2018-09-26 15:00:51', null);
-INSERT INTO `T_RESOURCE` VALUES ('6000', '系统权限', '/**', 'permit', '1', '-1', '1', null, '2018-09-25 01:16:01', null, '2018-09-25 09:16:10', null);
-INSERT INTO `T_RESOURCE` VALUES ('60001', '用户管理权限', '/user/*:*', 'permit', '2', '6000', '2', null, '2018-09-25 01:16:01', null, '2018-09-25 09:16:10', null);
-INSERT INTO `T_RESOURCE` VALUES ('600010', '删除菜单权限', '/menu/{id}:DELETE', 'permit', '3', '60006', '3', null, '2018-09-25 01:16:01', null, '2018-09-25 09:16:10', null);
-INSERT INTO `T_RESOURCE` VALUES ('600011', '角色管理权限', '/role/*:*', 'permit', '2', '6000', '3', null, '2018-09-25 01:16:01', null, '2018-09-25 09:16:10', null);
-INSERT INTO `T_RESOURCE` VALUES ('600012', '新增角色权限', '/role:POST', 'permit', '3', '600011', '3', null, '2018-09-25 01:16:01', null, '2018-09-25 09:16:10', null);
-INSERT INTO `T_RESOURCE` VALUES ('600013', '查询角色权限', '/role/{id}:GET', 'permit', '3', '600011', '3', null, '2018-09-25 01:16:01', null, '2018-09-25 09:16:10', null);
-INSERT INTO `T_RESOURCE` VALUES ('600014', '修改角色权限', '/role/{id}:PUT', 'permit', '3', '600011', '3', null, '2018-09-25 01:16:01', null, '2018-09-25 09:16:10', null);
-INSERT INTO `T_RESOURCE` VALUES ('600015', '删除角色权限', '/role/{id}:DELETE', 'permit', '3', '600011', '3', null, '2018-09-25 01:16:01', null, '2018-09-25 09:16:10', null);
-INSERT INTO `T_RESOURCE` VALUES ('600016', '权限管理', '/permit/*:*', 'permit', '2', '6000', '2', null, '2018-09-25 01:16:01', null, '2018-09-25 09:16:10', null);
-INSERT INTO `T_RESOURCE` VALUES ('600017', '新增权限', '/permit:POST', 'permit', '3', '600016', '3', null, '2018-09-25 01:16:01', null, '2018-09-25 09:16:10', null);
-INSERT INTO `T_RESOURCE` VALUES ('600018', '查询权限', '/permit/{id}:GET', 'permit', '3', '600016', '3', null, '2018-09-25 01:16:01', null, '2018-09-25 09:16:10', null);
-INSERT INTO `T_RESOURCE` VALUES ('600019', '修改权限', '/permit/{id}:PUT', 'permit', '3', '600016', '3', null, '2018-09-25 01:16:01', null, '2018-09-25 09:16:10', null);
-INSERT INTO `T_RESOURCE` VALUES ('60002', '新增用户权限', '/user:POST', 'permit', '3', '60001', '3', null, '2018-09-25 01:16:01', null, '2018-09-25 09:16:10', null);
-INSERT INTO `T_RESOURCE` VALUES ('600020', '删除权限', '/permit/{id}:DELETE', 'permit', '3', '600016', '3', null, '2018-09-25 01:16:01', null, '2018-09-25 09:16:10', null);
-INSERT INTO `T_RESOURCE` VALUES ('600021', '部门权限', '/department/*:*', 'permit', '2', '6000', '2', null, '2018-09-25 01:16:01', null, '2018-09-25 09:16:10', null);
-INSERT INTO `T_RESOURCE` VALUES ('600022', '新增部门权限', '/department:POST', 'permit', '3', '600021', '3', null, '2018-09-25 01:16:01', null, '2018-09-25 09:16:10', null);
-INSERT INTO `T_RESOURCE` VALUES ('600023', '查询部门权限', '/department/{id}:GET', 'permit', '3', '600021', '3', null, '2018-09-25 01:16:01', null, '2018-09-25 09:16:10', null);
-INSERT INTO `T_RESOURCE` VALUES ('600024', '修改部门权限', '/department/{id}:PUT', 'permit', '3', '600021', '3', null, '2018-09-25 01:16:01', null, '2018-09-25 09:16:10', null);
-INSERT INTO `T_RESOURCE` VALUES ('600025', '删除部门权限', '/department/{id}:DELETE', 'permit', '3', '600021', '3', null, '2018-09-25 01:16:01', null, '2018-09-25 09:16:10', null);
-INSERT INTO `T_RESOURCE` VALUES ('600026', '其它权限', '/other/*:*', 'permit', '2', '6000', '2', null, '2018-09-25 01:16:01', null, '2018-09-25 09:16:10', null);
-INSERT INTO `T_RESOURCE` VALUES ('600027', '用户授权', '/grant/{id}:POST', 'permit', '3', '600026', '3', null, '2018-09-25 01:16:01', null, '2018-09-25 09:16:10', null);
-INSERT INTO `T_RESOURCE` VALUES ('600028', '系统管理员权限', '/*:*', 'permit', '3', '600026', '3', null, '2018-09-25 01:16:01', null, '2018-09-25 09:16:10', null);
-INSERT INTO `T_RESOURCE` VALUES ('600029', '系统管理员权限(只读)', '/*:GET', 'permit', '3', '600026', '3', null, '2018-09-25 01:16:01', null, '2018-09-25 09:16:10', null);
-INSERT INTO `T_RESOURCE` VALUES ('60003', '查询用户权限', '/user/{id}:GET', 'permit', '3', '60001', '3', null, '2018-09-25 01:16:01', null, '2018-09-25 09:16:10', null);
-INSERT INTO `T_RESOURCE` VALUES ('600030', 'dasd', 'asdasda', 'permit', '2', '6000', '2', null, '2018-09-27 01:42:11', null, '2018-09-27 01:42:11', null);
-INSERT INTO `T_RESOURCE` VALUES ('60004', '修改用户权限', '/user/{id}:PUT', 'permit', '3', '60001', '3', null, '2018-09-25 01:16:01', null, '2018-09-25 09:16:10', null);
-INSERT INTO `T_RESOURCE` VALUES ('60005', '删除用户权限', '/user/{id}:DELETE', 'permit', '3', '60001', '3', null, '2018-09-25 01:16:01', null, '2018-09-25 09:16:10', null);
-INSERT INTO `T_RESOURCE` VALUES ('60006', '菜单管理权限', '/menu/*:*', 'permit', '2', '6000', '3', null, '2018-09-25 01:16:01', null, '2018-09-25 09:16:10', null);
-INSERT INTO `T_RESOURCE` VALUES ('60007', '新增菜单权限', '/menu:POST', 'permit', '3', '60006', '3', null, '2018-09-25 01:16:01', null, '2018-09-25 09:16:10', null);
-INSERT INTO `T_RESOURCE` VALUES ('60008', '查询菜单权限', '/menu/{id}:GET', 'permit', '3', '60006', '3', null, '2018-09-25 01:16:01', null, '2018-09-25 09:16:10', null);
-INSERT INTO `T_RESOURCE` VALUES ('60009', '修改菜单权限', '/menu/{id}:PUT', 'permit', '3', '60006', '3', null, '2018-09-25 01:16:01', null, '2018-09-25 09:16:10', null);
+CREATE TABLE `sys_role` (
+  `id`  int(11) NOT NULL AUTO_INCREMENT ,
+  `name`  varchar(100) NULL COMMENT '名称' ,
+  `desc`  varchar(100) NULL COMMENT '描述' ,
+  `create_time`  timestamp NULL ON UPDATE CURRENT_TIMESTAMP ,
+  PRIMARY KEY (`id`)
+)ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='角色表';
 
+CREATE TABLE `sys_resource` (
+  `id`  int(11) NOT NULL ,
+  `name`  varchar(100) NULL COMMENT '资源名称' ,
+  `value`  varchar(100) NULL COMMENT '资源编码' ,
+  `type`  varchar(3) NULL DEFAULT '' COMMENT '0-菜单页面；1-操作权限' ,
+  `parent_id`  int(11) NULL COMMENT '父编号' ,
+  `create_time`  timestamp NULL ON UPDATE CURRENT_TIMESTAMP ,
+  PRIMARY KEY (`id`)
+)ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='资源表';
 
--- ----------------------------
--- Table structure for T_ROLE
--- ----------------------------
-DROP TABLE IF EXISTS `T_ROLE`;
-CREATE TABLE `T_ROLE` (
-  `ID` varchar(22) NOT NULL COMMENT '编号',
-  `NAME` varchar(100) DEFAULT NULL COMMENT '名称',
-  `DESCRIPTION` varchar(100) DEFAULT NULL COMMENT '描述',
-  `PARENT_ID` varchar(22) DEFAULT NULL COMMENT '父编号',
-  `LEVEL` smallint(6) DEFAULT NULL COMMENT '级别',
-  `CREATE_AT` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
-  `CREATE_BY` bigint(20) DEFAULT NULL COMMENT '创建人',
-  `UPDATE_AT` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '修改时间',
-  `UPDATE_BY` bigint(20) DEFAULT NULL COMMENT '修改人',
-  PRIMARY KEY (`ID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='角色表';
+CREATE TABLE `sys_role_resource` (
+  `id`  int(11) NOT NULL AUTO_INCREMENT ,
+  `role_id`  int(11) NULL COMMENT '角色ID' ,
+  `resource_id`  int(11) NULL COMMENT '资源ID' ,
+  `create_time`  timestamp NULL ON UPDATE CURRENT_TIMESTAMP COMMENT '创建时间' ,
+  PRIMARY KEY (`id`)
+)ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='角色资源表';
 
--- ----------------------------
--- Records of T_ROLE
--- ----------------------------
-INSERT INTO `T_ROLE` VALUES ('1000', '超级管理员', '超级管理员', '-1', '1', '2018-09-25 06:41:05', '1', '2018-09-27 01:51:55', '1');
-INSERT INTO `T_ROLE` VALUES ('10001', '管理员(只读)', '管理员(只读)', '1000', '1', '2018-09-26 02:19:25', null, '2018-09-27 01:51:46', null);
-INSERT INTO `T_ROLE` VALUES ('10002', '管理员', '管理员', '1000', '1', '2018-09-26 02:19:25', null, '2018-09-27 01:51:50', null);
-INSERT INTO `T_ROLE` VALUES ('10003', '用户管理员', '用户管理员', '10002', null, '2018-09-26 08:06:23', null, '2018-09-26 14:54:04', null);
-INSERT INTO `T_ROLE` VALUES ('10004', 'bbb', 'bbb', '10003', null, '2018-09-26 13:39:02', null, '2018-09-26 14:54:10', null);
-INSERT INTO `T_ROLE` VALUES ('10005', 'vv', 'asd', '10002', null, '2018-09-26 14:49:27', null, '2018-09-26 14:54:27', null);
-INSERT INTO `T_ROLE` VALUES ('10006', 'dasd', 'asdasdsadad', '10002', null, '2018-09-26 14:58:46', null, '2018-09-26 14:58:46', null);
-INSERT INTO `T_ROLE` VALUES ('10007', 'bbb', 'bbbb', '10001', null, '2018-09-26 14:59:20', null, '2018-09-26 14:59:20', null);
-INSERT INTO `T_ROLE` VALUES ('10008', 'all', 'all', '10006', null, '2018-09-27 01:57:21', null, '2018-09-27 01:57:21', null);
-INSERT INTO `T_ROLE` VALUES ('10009', 'test', 'test', '10008', null, '2018-09-27 02:30:29', null, '2018-09-27 02:30:29', null);
-INSERT INTO `T_ROLE` VALUES ('10010', 'a', 'a', '10009', null, '2018-09-27 05:50:32', null, '2018-09-27 05:50:32', null);
-INSERT INTO `T_ROLE` VALUES ('10011', 'b', 'b', '10010', null, '2018-09-27 05:53:59', null, '2018-09-27 05:53:59', null);
-
--- ----------------------------
--- Table structure for T_ROLE_RESOURCE
--- ----------------------------
-DROP TABLE IF EXISTS `T_ROLE_RESOURCE`;
-CREATE TABLE `T_ROLE_RESOURCE` (
-  `ID` bigint(22) NOT NULL AUTO_INCREMENT COMMENT '编号',
-  `ROLE_ID` varchar(22) DEFAULT NULL COMMENT '角色编号',
-  `RESOURCE_ID` varchar(22) DEFAULT NULL COMMENT '资源编号',
-  `CREATE_AT` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
-  `CREATE_BY` bigint(20) DEFAULT NULL COMMENT '创建人',
-  `UPDATE_AT` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '修改时间',
-  `UPDATE_BY` bigint(20) DEFAULT NULL COMMENT '修改人',
-  PRIMARY KEY (`ID`),
-  KEY `role_index` (`ROLE_ID`) USING BTREE,
-  KEY `rource_index` (`RESOURCE_ID`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=196 DEFAULT CHARSET=utf8mb4 COMMENT='角色资源表';
-
--- ----------------------------
--- Records of T_ROLE_RESOURCE
--- ----------------------------
-INSERT INTO `T_ROLE_RESOURCE` VALUES ('80', '10008', '600017', '2018-09-27 01:57:21', null, '2018-09-27 01:57:21', null);
-INSERT INTO `T_ROLE_RESOURCE` VALUES ('81', '10008', '600028', '2018-09-27 01:57:21', null, '2018-09-27 01:57:21', null);
-INSERT INTO `T_ROLE_RESOURCE` VALUES ('82', '10008', '600018', '2018-09-27 01:57:21', null, '2018-09-27 01:57:21', null);
-INSERT INTO `T_ROLE_RESOURCE` VALUES ('83', '10008', '600029', '2018-09-27 01:57:21', null, '2018-09-27 01:57:21', null);
-INSERT INTO `T_ROLE_RESOURCE` VALUES ('84', '10008', '600019', '2018-09-27 01:57:21', null, '2018-09-27 01:57:21', null);
-INSERT INTO `T_ROLE_RESOURCE` VALUES ('85', '10008', '60009', '2018-09-27 01:57:21', null, '2018-09-27 01:57:21', null);
-INSERT INTO `T_ROLE_RESOURCE` VALUES ('86', '10008', '60008', '2018-09-27 01:57:21', null, '2018-09-27 01:57:21', null);
-INSERT INTO `T_ROLE_RESOURCE` VALUES ('87', '10008', '60007', '2018-09-27 01:57:21', null, '2018-09-27 01:57:21', null);
-INSERT INTO `T_ROLE_RESOURCE` VALUES ('88', '10008', '60005', '2018-09-27 01:57:21', null, '2018-09-27 01:57:21', null);
-INSERT INTO `T_ROLE_RESOURCE` VALUES ('89', '10008', '60004', '2018-09-27 01:57:21', null, '2018-09-27 01:57:21', null);
-INSERT INTO `T_ROLE_RESOURCE` VALUES ('90', '10008', '60003', '2018-09-27 01:57:21', null, '2018-09-27 01:57:21', null);
-INSERT INTO `T_ROLE_RESOURCE` VALUES ('91', '10008', '60002', '2018-09-27 01:57:21', null, '2018-09-27 01:57:21', null);
-INSERT INTO `T_ROLE_RESOURCE` VALUES ('92', '10008', '600030', '2018-09-27 01:57:21', null, '2018-09-27 01:57:21', null);
-INSERT INTO `T_ROLE_RESOURCE` VALUES ('93', '10008', '600020', '2018-09-27 01:57:21', null, '2018-09-27 01:57:21', null);
-INSERT INTO `T_ROLE_RESOURCE` VALUES ('94', '10008', '600010', '2018-09-27 01:57:21', null, '2018-09-27 01:57:21', null);
-INSERT INTO `T_ROLE_RESOURCE` VALUES ('95', '10008', '600022', '2018-09-27 01:57:21', null, '2018-09-27 01:57:21', null);
-INSERT INTO `T_ROLE_RESOURCE` VALUES ('96', '10008', '600012', '2018-09-27 01:57:21', null, '2018-09-27 01:57:21', null);
-INSERT INTO `T_ROLE_RESOURCE` VALUES ('97', '10008', '600023', '2018-09-27 01:57:21', null, '2018-09-27 01:57:21', null);
-INSERT INTO `T_ROLE_RESOURCE` VALUES ('98', '10008', '600013', '2018-09-27 01:57:21', null, '2018-09-27 01:57:21', null);
-INSERT INTO `T_ROLE_RESOURCE` VALUES ('99', '10008', '600024', '2018-09-27 01:57:21', null, '2018-09-27 01:57:21', null);
-INSERT INTO `T_ROLE_RESOURCE` VALUES ('100', '10008', '600014', '2018-09-27 01:57:21', null, '2018-09-27 01:57:21', null);
-INSERT INTO `T_ROLE_RESOURCE` VALUES ('101', '10008', '600025', '2018-09-27 01:57:21', null, '2018-09-27 01:57:21', null);
-INSERT INTO `T_ROLE_RESOURCE` VALUES ('102', '10008', '600015', '2018-09-27 01:57:21', null, '2018-09-27 01:57:21', null);
-INSERT INTO `T_ROLE_RESOURCE` VALUES ('103', '10008', '600027', '2018-09-27 01:57:21', null, '2018-09-27 01:57:21', null);
-INSERT INTO `T_ROLE_RESOURCE` VALUES ('104', '10009', '600017', '2018-09-27 02:30:29', null, '2018-09-27 02:30:29', null);
-INSERT INTO `T_ROLE_RESOURCE` VALUES ('105', '10009', '600028', '2018-09-27 02:30:29', null, '2018-09-27 02:30:29', null);
-INSERT INTO `T_ROLE_RESOURCE` VALUES ('106', '10009', '600018', '2018-09-27 02:30:29', null, '2018-09-27 02:30:29', null);
-INSERT INTO `T_ROLE_RESOURCE` VALUES ('107', '10009', '600029', '2018-09-27 02:30:29', null, '2018-09-27 02:30:29', null);
-INSERT INTO `T_ROLE_RESOURCE` VALUES ('108', '10009', '600019', '2018-09-27 02:30:29', null, '2018-09-27 02:30:29', null);
-INSERT INTO `T_ROLE_RESOURCE` VALUES ('109', '10009', '60009', '2018-09-27 02:30:29', null, '2018-09-27 02:30:29', null);
-INSERT INTO `T_ROLE_RESOURCE` VALUES ('110', '10009', '60008', '2018-09-27 02:30:29', null, '2018-09-27 02:30:29', null);
-INSERT INTO `T_ROLE_RESOURCE` VALUES ('111', '10009', '60007', '2018-09-27 02:30:29', null, '2018-09-27 02:30:29', null);
-INSERT INTO `T_ROLE_RESOURCE` VALUES ('112', '10009', '60005', '2018-09-27 02:30:29', null, '2018-09-27 02:30:29', null);
-INSERT INTO `T_ROLE_RESOURCE` VALUES ('113', '10009', '60004', '2018-09-27 02:30:29', null, '2018-09-27 02:30:29', null);
-INSERT INTO `T_ROLE_RESOURCE` VALUES ('114', '10009', '60003', '2018-09-27 02:30:29', null, '2018-09-27 02:30:29', null);
-INSERT INTO `T_ROLE_RESOURCE` VALUES ('115', '10009', '60002', '2018-09-27 02:30:29', null, '2018-09-27 02:30:29', null);
-INSERT INTO `T_ROLE_RESOURCE` VALUES ('116', '10009', '600030', '2018-09-27 02:30:29', null, '2018-09-27 02:30:29', null);
-INSERT INTO `T_ROLE_RESOURCE` VALUES ('117', '10009', '600020', '2018-09-27 02:30:29', null, '2018-09-27 02:30:29', null);
-INSERT INTO `T_ROLE_RESOURCE` VALUES ('118', '10009', '600010', '2018-09-27 02:30:29', null, '2018-09-27 02:30:29', null);
-INSERT INTO `T_ROLE_RESOURCE` VALUES ('119', '10009', '600022', '2018-09-27 02:30:29', null, '2018-09-27 02:30:29', null);
-INSERT INTO `T_ROLE_RESOURCE` VALUES ('120', '10009', '600012', '2018-09-27 02:30:29', null, '2018-09-27 02:30:29', null);
-INSERT INTO `T_ROLE_RESOURCE` VALUES ('121', '10009', '600023', '2018-09-27 02:30:29', null, '2018-09-27 02:30:29', null);
-INSERT INTO `T_ROLE_RESOURCE` VALUES ('122', '10009', '600013', '2018-09-27 02:30:29', null, '2018-09-27 02:30:29', null);
-INSERT INTO `T_ROLE_RESOURCE` VALUES ('123', '10009', '600024', '2018-09-27 02:30:29', null, '2018-09-27 02:30:29', null);
-INSERT INTO `T_ROLE_RESOURCE` VALUES ('124', '10009', '600014', '2018-09-27 02:30:29', null, '2018-09-27 02:30:29', null);
-INSERT INTO `T_ROLE_RESOURCE` VALUES ('125', '10009', '600025', '2018-09-27 02:30:29', null, '2018-09-27 02:30:29', null);
-INSERT INTO `T_ROLE_RESOURCE` VALUES ('126', '10009', '600015', '2018-09-27 02:30:29', null, '2018-09-27 02:30:29', null);
-INSERT INTO `T_ROLE_RESOURCE` VALUES ('127', '10009', '600027', '2018-09-27 02:30:29', null, '2018-09-27 02:30:29', null);
-INSERT INTO `T_ROLE_RESOURCE` VALUES ('128', '10009', '30001', '2018-09-27 02:30:29', null, '2018-09-27 02:30:29', null);
-INSERT INTO `T_ROLE_RESOURCE` VALUES ('129', '10009', '20002', '2018-09-27 02:30:29', null, '2018-09-27 02:30:29', null);
-INSERT INTO `T_ROLE_RESOURCE` VALUES ('130', '10009', '40001', '2018-09-27 02:30:29', null, '2018-09-27 02:30:29', null);
-INSERT INTO `T_ROLE_RESOURCE` VALUES ('131', '10009', '50001', '2018-09-27 02:30:29', null, '2018-09-27 02:30:29', null);
-INSERT INTO `T_ROLE_RESOURCE` VALUES ('132', '10009', '10005', '2018-09-27 02:30:29', null, '2018-09-27 02:30:29', null);
-INSERT INTO `T_ROLE_RESOURCE` VALUES ('133', '10010', '600017', '2018-09-27 05:50:32', null, '2018-09-27 05:50:32', null);
-INSERT INTO `T_ROLE_RESOURCE` VALUES ('134', '10010', '600028', '2018-09-27 05:50:32', null, '2018-09-27 05:50:32', null);
-INSERT INTO `T_ROLE_RESOURCE` VALUES ('135', '10010', '600018', '2018-09-27 05:50:32', null, '2018-09-27 05:50:32', null);
-INSERT INTO `T_ROLE_RESOURCE` VALUES ('136', '10010', '600029', '2018-09-27 05:50:32', null, '2018-09-27 05:50:32', null);
-INSERT INTO `T_ROLE_RESOURCE` VALUES ('137', '10010', '600019', '2018-09-27 05:50:32', null, '2018-09-27 05:50:32', null);
-INSERT INTO `T_ROLE_RESOURCE` VALUES ('138', '10010', '60009', '2018-09-27 05:50:32', null, '2018-09-27 05:50:32', null);
-INSERT INTO `T_ROLE_RESOURCE` VALUES ('139', '10010', '60008', '2018-09-27 05:50:32', null, '2018-09-27 05:50:32', null);
-INSERT INTO `T_ROLE_RESOURCE` VALUES ('140', '10010', '60007', '2018-09-27 05:50:32', null, '2018-09-27 05:50:32', null);
-INSERT INTO `T_ROLE_RESOURCE` VALUES ('141', '10010', '60005', '2018-09-27 05:50:32', null, '2018-09-27 05:50:32', null);
-INSERT INTO `T_ROLE_RESOURCE` VALUES ('142', '10010', '60004', '2018-09-27 05:50:32', null, '2018-09-27 05:50:32', null);
-INSERT INTO `T_ROLE_RESOURCE` VALUES ('143', '10010', '60003', '2018-09-27 05:50:32', null, '2018-09-27 05:50:32', null);
-INSERT INTO `T_ROLE_RESOURCE` VALUES ('144', '10010', '60002', '2018-09-27 05:50:32', null, '2018-09-27 05:50:32', null);
-INSERT INTO `T_ROLE_RESOURCE` VALUES ('145', '10010', '600030', '2018-09-27 05:50:32', null, '2018-09-27 05:50:32', null);
-INSERT INTO `T_ROLE_RESOURCE` VALUES ('146', '10010', '600020', '2018-09-27 05:50:32', null, '2018-09-27 05:50:32', null);
-INSERT INTO `T_ROLE_RESOURCE` VALUES ('147', '10010', '600010', '2018-09-27 05:50:32', null, '2018-09-27 05:50:32', null);
-INSERT INTO `T_ROLE_RESOURCE` VALUES ('148', '10010', '600022', '2018-09-27 05:50:32', null, '2018-09-27 05:50:32', null);
-INSERT INTO `T_ROLE_RESOURCE` VALUES ('149', '10010', '600012', '2018-09-27 05:50:32', null, '2018-09-27 05:50:32', null);
-INSERT INTO `T_ROLE_RESOURCE` VALUES ('150', '10010', '600023', '2018-09-27 05:50:32', null, '2018-09-27 05:50:32', null);
-INSERT INTO `T_ROLE_RESOURCE` VALUES ('151', '10010', '600013', '2018-09-27 05:50:32', null, '2018-09-27 05:50:32', null);
-INSERT INTO `T_ROLE_RESOURCE` VALUES ('152', '10010', '600024', '2018-09-27 05:50:32', null, '2018-09-27 05:50:32', null);
-INSERT INTO `T_ROLE_RESOURCE` VALUES ('153', '10010', '600014', '2018-09-27 05:50:32', null, '2018-09-27 05:50:32', null);
-INSERT INTO `T_ROLE_RESOURCE` VALUES ('154', '10010', '600025', '2018-09-27 05:50:32', null, '2018-09-27 05:50:32', null);
-INSERT INTO `T_ROLE_RESOURCE` VALUES ('155', '10010', '600015', '2018-09-27 05:50:32', null, '2018-09-27 05:50:32', null);
-INSERT INTO `T_ROLE_RESOURCE` VALUES ('156', '10010', '600027', '2018-09-27 05:50:32', null, '2018-09-27 05:50:32', null);
-INSERT INTO `T_ROLE_RESOURCE` VALUES ('157', '10010', '30001', '2018-09-27 05:50:32', null, '2018-09-27 05:50:32', null);
-INSERT INTO `T_ROLE_RESOURCE` VALUES ('158', '10010', '20002', '2018-09-27 05:50:32', null, '2018-09-27 05:50:32', null);
-INSERT INTO `T_ROLE_RESOURCE` VALUES ('159', '10010', '40001', '2018-09-27 05:50:32', null, '2018-09-27 05:50:32', null);
-INSERT INTO `T_ROLE_RESOURCE` VALUES ('160', '10010', '50001', '2018-09-27 05:50:32', null, '2018-09-27 05:50:32', null);
-INSERT INTO `T_ROLE_RESOURCE` VALUES ('161', '10010', '10005', '2018-09-27 05:50:32', null, '2018-09-27 05:50:32', null);
-INSERT INTO `T_ROLE_RESOURCE` VALUES ('162', '10011', '600017', '2018-09-27 05:53:59', null, '2018-09-27 05:53:59', null);
-INSERT INTO `T_ROLE_RESOURCE` VALUES ('163', '10011', '600028', '2018-09-27 05:53:59', null, '2018-09-27 05:53:59', null);
-INSERT INTO `T_ROLE_RESOURCE` VALUES ('164', '10011', '600018', '2018-09-27 05:53:59', null, '2018-09-27 05:53:59', null);
-INSERT INTO `T_ROLE_RESOURCE` VALUES ('165', '10011', '600029', '2018-09-27 05:53:59', null, '2018-09-27 05:53:59', null);
-INSERT INTO `T_ROLE_RESOURCE` VALUES ('166', '10011', '600019', '2018-09-27 05:53:59', null, '2018-09-27 05:53:59', null);
-INSERT INTO `T_ROLE_RESOURCE` VALUES ('167', '10011', '60009', '2018-09-27 05:53:59', null, '2018-09-27 05:53:59', null);
-INSERT INTO `T_ROLE_RESOURCE` VALUES ('168', '10011', '60008', '2018-09-27 05:53:59', null, '2018-09-27 05:53:59', null);
-INSERT INTO `T_ROLE_RESOURCE` VALUES ('169', '10011', '60007', '2018-09-27 05:53:59', null, '2018-09-27 05:53:59', null);
-INSERT INTO `T_ROLE_RESOURCE` VALUES ('170', '10011', '60005', '2018-09-27 05:53:59', null, '2018-09-27 05:53:59', null);
-INSERT INTO `T_ROLE_RESOURCE` VALUES ('171', '10011', '60004', '2018-09-27 05:53:59', null, '2018-09-27 05:53:59', null);
-INSERT INTO `T_ROLE_RESOURCE` VALUES ('172', '10011', '60003', '2018-09-27 05:53:59', null, '2018-09-27 05:53:59', null);
-INSERT INTO `T_ROLE_RESOURCE` VALUES ('173', '10011', '60002', '2018-09-27 05:53:59', null, '2018-09-27 05:53:59', null);
-INSERT INTO `T_ROLE_RESOURCE` VALUES ('174', '10011', '600030', '2018-09-27 05:53:59', null, '2018-09-27 05:53:59', null);
-INSERT INTO `T_ROLE_RESOURCE` VALUES ('175', '10011', '600020', '2018-09-27 05:53:59', null, '2018-09-27 05:53:59', null);
-INSERT INTO `T_ROLE_RESOURCE` VALUES ('176', '10011', '600010', '2018-09-27 05:53:59', null, '2018-09-27 05:53:59', null);
-INSERT INTO `T_ROLE_RESOURCE` VALUES ('177', '10011', '600022', '2018-09-27 05:53:59', null, '2018-09-27 05:53:59', null);
-INSERT INTO `T_ROLE_RESOURCE` VALUES ('178', '10011', '600012', '2018-09-27 05:53:59', null, '2018-09-27 05:53:59', null);
-INSERT INTO `T_ROLE_RESOURCE` VALUES ('179', '10011', '600023', '2018-09-27 05:53:59', null, '2018-09-27 05:53:59', null);
-INSERT INTO `T_ROLE_RESOURCE` VALUES ('180', '10011', '600013', '2018-09-27 05:53:59', null, '2018-09-27 05:53:59', null);
-INSERT INTO `T_ROLE_RESOURCE` VALUES ('181', '10011', '600024', '2018-09-27 05:53:59', null, '2018-09-27 05:53:59', null);
-INSERT INTO `T_ROLE_RESOURCE` VALUES ('182', '10011', '600014', '2018-09-27 05:53:59', null, '2018-09-27 05:53:59', null);
-INSERT INTO `T_ROLE_RESOURCE` VALUES ('183', '10011', '600025', '2018-09-27 05:53:59', null, '2018-09-27 05:53:59', null);
-INSERT INTO `T_ROLE_RESOURCE` VALUES ('184', '10011', '600015', '2018-09-27 05:53:59', null, '2018-09-27 05:53:59', null);
-INSERT INTO `T_ROLE_RESOURCE` VALUES ('185', '10011', '600027', '2018-09-27 05:54:00', null, '2018-09-27 05:54:00', null);
-INSERT INTO `T_ROLE_RESOURCE` VALUES ('186', '10011', '30001', '2018-09-27 05:54:00', null, '2018-09-27 05:54:00', null);
-INSERT INTO `T_ROLE_RESOURCE` VALUES ('187', '10011', '20002', '2018-09-27 05:54:00', null, '2018-09-27 05:54:00', null);
-INSERT INTO `T_ROLE_RESOURCE` VALUES ('188', '10011', '20001', '2018-09-27 05:54:00', null, '2018-09-27 05:54:00', null);
-INSERT INTO `T_ROLE_RESOURCE` VALUES ('189', '10011', '40001', '2018-09-27 05:54:00', null, '2018-09-27 05:54:00', null);
-INSERT INTO `T_ROLE_RESOURCE` VALUES ('190', '10011', '50001', '2018-09-27 05:54:00', null, '2018-09-27 05:54:00', null);
-INSERT INTO `T_ROLE_RESOURCE` VALUES ('191', '10011', '10002', '2018-09-27 05:54:00', null, '2018-09-27 05:54:00', null);
-INSERT INTO `T_ROLE_RESOURCE` VALUES ('192', '10011', '10001', '2018-09-27 05:54:00', null, '2018-09-27 05:54:00', null);
-INSERT INTO `T_ROLE_RESOURCE` VALUES ('193', '10011', '10004', '2018-09-27 05:54:00', null, '2018-09-27 05:54:00', null);
-INSERT INTO `T_ROLE_RESOURCE` VALUES ('194', '10011', '10003', '2018-09-27 05:54:00', null, '2018-09-27 05:54:00', null);
-INSERT INTO `T_ROLE_RESOURCE` VALUES ('195', '10011', '10005', '2018-09-27 05:54:00', null, '2018-09-27 05:54:00', null);
-
--- ----------------------------
--- Table structure for T_SYS_LOG
--- ----------------------------
-DROP TABLE IF EXISTS `T_SYS_LOG`;
-CREATE TABLE `T_SYS_LOG` (
-  `ID` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '主键',
-  `NAME` varchar(100) DEFAULT NULL COMMENT '操作名称',
-  `OPERATOR` bigint(20) DEFAULT NULL COMMENT '操作人',
-  `UNDER_OPERATION` bigint(20) DEFAULT NULL COMMENT '被操作人',
-  `REMARK` varchar(200) DEFAULT NULL COMMENT '备注',
-  `CREATE_AT` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '创建时间',
-  PRIMARY KEY (`ID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='系统操作日志记录';
-
--- ----------------------------
--- Records of T_SYS_LOG
--- ----------------------------
-
--- ----------------------------
--- Table structure for T_USER
--- ----------------------------
-DROP TABLE IF EXISTS `T_USER`;
-CREATE TABLE `T_USER` (
-  `ID` bigint(22) NOT NULL AUTO_INCREMENT COMMENT '用户编号',
-  `USER_NAME` varchar(100) CHARACTER SET utf8 DEFAULT NULL COMMENT '用户名称',
-  `PASSWORD` varchar(100) CHARACTER SET utf8 DEFAULT NULL COMMENT '密码',
-  `USER_TYPE` varchar(50) CHARACTER SET utf8 DEFAULT NULL COMMENT '用户类型',
-  `MOBILE` varchar(13) CHARACTER SET utf8 DEFAULT NULL COMMENT '手机号码',
-  `STATUS` varchar(10) CHARACTER SET utf8 DEFAULT NULL COMMENT '状态',
-  `DEP_ID` varchar(22) DEFAULT NULL COMMENT '部门编号',
-  `CREATE_AT` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
-  `CREATE_BY` bigint(22) DEFAULT NULL COMMENT '创建人',
-  `UPDATE_BY` bigint(22) DEFAULT NULL COMMENT '修改人',
-  `UPDATE_AT` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '修改时间',
-  `REMARK` varchar(200) CHARACTER SET utf8 DEFAULT NULL COMMENT '备注',
-  `LOGIN_IP` varchar(50) CHARACTER SET utf8 DEFAULT NULL COMMENT '登录IP',
-  `LOGIN_TIME` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '登录时间',
-  PRIMARY KEY (`ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COMMENT='用户表';
-
--- ----------------------------
--- Records of T_USER
--- ----------------------------
-INSERT INTO `T_USER` VALUES ('6', '卢胜元', null, '0', '15072398211', '1', '10002', '2018-09-27 01:52:23', null, null, '2018-09-27 01:52:23', null, null, '2018-09-27 01:52:23');
-INSERT INTO `T_USER` VALUES ('7', '关余', null, '0', '13926188178', '1', '10002', '2018-09-27 01:58:05', null, null, '2018-09-27 01:58:05', null, null, '2018-09-27 01:58:05');
-INSERT INTO `T_USER` VALUES ('8', 'bbvbc', null, '0', '7', '1', '10008', '2018-09-27 03:45:31', null, null, '2018-09-27 03:45:31', null, null, '2018-09-27 03:45:31');
-INSERT INTO `T_USER` VALUES ('9', 'mmm', null, '0', 'mmmm', '1', '10006', '2018-09-27 05:54:20', null, null, '2018-09-27 05:54:20', null, null, '2018-09-27 05:54:20');
-INSERT INTO `T_USER` VALUES ('10', 'adasd', null, '0', 'asdasd', '1', '10003', '2018-09-27 11:21:33', null, null, '2018-09-27 11:21:33', null, null, '2018-09-27 11:21:33');
-
--- ----------------------------
--- Table structure for T_USER_ROLE
--- ----------------------------
-DROP TABLE IF EXISTS `T_USER_ROLE`;
-CREATE TABLE `T_USER_ROLE` (
-  `ID` bigint(22) NOT NULL AUTO_INCREMENT COMMENT '主键',
-  `USER_ID` bigint(22) DEFAULT NULL COMMENT '用户编号',
-  `ROLE_ID` varchar(22) DEFAULT NULL COMMENT '角色编号',
-  `CREATE_AT` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
-  `CREATE_BY` bigint(20) DEFAULT NULL COMMENT '创建人',
-  `UPDATE_AT` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '修改时间',
-  `UPDATE_BY` bigint(20) DEFAULT NULL COMMENT '修改人',
-  PRIMARY KEY (`ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8mb4 COMMENT='用户角色表';
-
--- ----------------------------
--- Records of T_USER_ROLE
--- ----------------------------
-INSERT INTO `T_USER_ROLE` VALUES ('10', '6', '10007', '2018-09-27 01:52:23', null, '2018-09-27 01:52:23', null);
-INSERT INTO `T_USER_ROLE` VALUES ('11', '6', '10004', '2018-09-27 01:52:23', null, '2018-09-27 01:52:23', null);
-INSERT INTO `T_USER_ROLE` VALUES ('12', '6', '10006', '2018-09-27 01:52:23', null, '2018-09-27 01:52:23', null);
-INSERT INTO `T_USER_ROLE` VALUES ('13', '6', '10005', '2018-09-27 01:52:23', null, '2018-09-27 01:52:23', null);
-INSERT INTO `T_USER_ROLE` VALUES ('14', '7', '10008', '2018-09-27 01:58:05', null, '2018-09-27 01:58:05', null);
-INSERT INTO `T_USER_ROLE` VALUES ('15', '8', '10009', '2018-09-27 03:45:31', null, '2018-09-27 03:45:31', null);
-INSERT INTO `T_USER_ROLE` VALUES ('16', '8', '10004', '2018-09-27 03:45:31', null, '2018-09-27 03:45:31', null);
-INSERT INTO `T_USER_ROLE` VALUES ('17', '8', '10005', '2018-09-27 03:45:31', null, '2018-09-27 03:45:31', null);
-INSERT INTO `T_USER_ROLE` VALUES ('18', '9', '10011', '2018-09-27 05:54:20', null, '2018-09-27 05:54:20', null);
-INSERT INTO `T_USER_ROLE` VALUES ('19', '10', '10007', '2018-09-27 11:21:33', null, '2018-09-27 11:21:33', null);
-INSERT INTO `T_USER_ROLE` VALUES ('20', '10', '10011', '2018-09-27 11:21:33', null, '2018-09-27 11:21:33', null);
+CREATE TABLE `sys_user_role` (
+  `id`  int(11) NOT NULL AUTO_INCREMENT ,
+  `user_id`  int(11) NULL COMMENT '用户ID' ,
+  `role_id`  int(11) NULL COMMENT '角色ID' ,
+  `create_time`  timestamp NULL ON UPDATE CURRENT_TIMESTAMP COMMENT '创建时间' ,
+  PRIMARY KEY (`id`)
+)ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='用户角色表';
