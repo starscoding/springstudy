@@ -63,14 +63,14 @@
     <!-- 总管理类 如果将lazy-init='false'那么容器启动就会执行调度程序 -->
     <!--DirectSchedulerFactory或者StdSchedulerFactory。第二种工厂StdSchedulerFactory使用较多，因为DirectSchedulerFactory使用起来不够方便，需要作许多详细的手工编码设置。-->
     <!--Scheduler主要有三种：RemoteMBeanScheduler，RemoteScheduler和StdScheduler。-->
-    <bean id="startQuertz" lazy-init="false" autowire="no"
+    <bean id="startQuertz" lazy-init="true" autowire="no"
           class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
         <!-- 管理trigger -->
         <property name="dataSource" ref="quartzDataSource"/>
         <!--可选，QuartzScheduler 启动时更新己存在的Job，这样就不用每次修改targetObject后删除qrtz_job_details表对应记录了 -->
         <property name="overwriteExistingJobs" value="true"/>
         <!--必须的，QuartzScheduler 延时启动，应用启动完后 QuartzScheduler 再启动 -->
-        <property name="startupDelay" value="3"/>
+        <property name="startupDelay" value="213"/>
         <!-- 设置自动启动 -->
         <property name="autoStartup" value="true"/>
         <!-- 把spring上下 文以key/value的方式存放在了quartz的上下文中了 -->

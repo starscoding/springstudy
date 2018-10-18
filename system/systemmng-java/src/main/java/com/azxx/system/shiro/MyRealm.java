@@ -1,7 +1,7 @@
 package com.azxx.system.shiro;
 
 import com.azxx.system.entity.User;
-import com.azxx.system.service.UserService;
+import com.azxx.system.service.ShiroUserService;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.*;
@@ -28,7 +28,7 @@ public class MyRealm extends AuthorizingRealm {
     private Logger logger = LoggerFactory.getLogger(getClass());
 
     @Autowired
-    private UserService userService;
+    private ShiroUserService userService;
     /**
      * 为当前登陆成功的用户授予权限和角色，已经登陆成功了
      */

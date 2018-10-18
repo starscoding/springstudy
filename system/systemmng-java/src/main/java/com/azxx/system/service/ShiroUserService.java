@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.Set;
 
 @Component
-public class UserService {
+public class ShiroUserService {
 
     public List<String> getRoles(String userName){
         return null;

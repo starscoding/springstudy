@@ -12,7 +12,7 @@
 
     <!-- 整合shiro -->
     <!-- 自定义Realm -->
-    <bean id="myRealm" class="com.smile.azxx.shiro.MyRealm">
+    <bean id="myRealm" class="com.azxx.system.shiro.MyRealm">
 
     </bean>
 
@@ -38,7 +38,7 @@
         <!--</map>-->
         <!--</property>-->
         <!-- Shiro连接约束配置,即过滤链的定义 -->
-        <property name="filterChainDefinitionMap" ref="shiroFilterChainDefinitionsMap"/>
+        <!--<property name="filterChainDefinitionMap" ref="shiroFilterChainDefinitionsMap"/>-->
         <!-- Shiro连接约束配置,即过滤链的定义 -->
         <!--<property name="filterChainDefinitions">-->
         <!--<value>-->
@@ -50,7 +50,7 @@
         <!--</property>-->
     </bean>
     <!--Shiro filter url configs -->
-    <bean id="shiroFilterChainDefinitionsMap" class="com.smile.azxx.shiro.ShiroFilterChainDefinitionsMap"/>
+    <!--<bean id="shiroFilterChainDefinitionsMap" class="com.smile.azxx.shiro.ShiroFilterChainDefinitionsMap"/>-->
 
     <!-- 保证实现了Shiro内部lifecycle函数的bean执行 -->
     <bean id="lifecycleBeanPostProcessor" class="org.apache.shiro.spring.LifecycleBeanPostProcessor"/>
