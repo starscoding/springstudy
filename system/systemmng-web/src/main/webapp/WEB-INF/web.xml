@@ -45,6 +45,11 @@
     <url-pattern>/</url-pattern>
   </servlet-mapping>
 
+  <servlet-mapping>
+    <servlet-name>default</servlet-name>
+    <url-pattern>*.html</url-pattern>
+  </servlet-mapping>
+
   <!--解决中文乱码-->
   <filter>
     <filter-name>characterEncodingFilter</filter-name>

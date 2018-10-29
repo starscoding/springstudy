@@ -1,24 +1,26 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd">
 
 
-    <bean id="shiroConfigurer"
-          class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
-        <property name="location" value="classpath:/shiro/shiro.properties"/>
-        <property name="ignoreUnresolvablePlaceholders" value="true"/>
-    </bean>
+    <!--<bean id="shiroConfigurer"-->
+          <!--class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">-->
+        <!--<property name="location" value="classpath:/shiro/shiro.properties"/>-->
+        <!--<property name="ignoreUnresolvablePlaceholders" value="true"/>-->
+    <!--</bean>-->
+
+    <context:property-placeholder location="classpath:/shiro/shiro.properties" ignore-unresolvable="true"/>
 
     <!-- 整合shiro -->
     <!-- 自定义Realm -->
     <bean id="myRealm" class="com.azxx.system.shiro.MyRealm">
-
     </bean>
 
     <!-- 安全管理器 -->
     <bean id="securityManager" class="org.apache.shiro.web.mgt.DefaultWebSecurityManager">
-        <property name="realm" ref="${shiro.activeRealm}" />
+        <property name="realm" ref="myRealm" />
         <property name="cacheManager" ref="cacheManager" />
     </bean>
 
